@@ -1,0 +1,8 @@
+.spyproject
+*pycache*
+*.png
+data
+00_Results
+dummy_run.py
+dummy_main.py
+00_Runs

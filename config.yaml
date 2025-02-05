@@ -1,0 +1,52 @@
+# optimized:
+#   learning_rate_exp:
+#     - float
+#     - -4
+#     - -2
+#   weight_decay_rate:
+#     - float
+#     - -4
+#     - -2
+#   num_blocks:
+#     - int
+#     - 1
+#     - 3
+
+learning:
+  num_epochs: 12
+  testevery: 1
+  learning_rate_decay: 0.2
+  scheduler_name: StepLR
+  learning_rate_exp: -3.3546815714568163
+  weight_decay_rate: -2.697245124726101
+  step_size: 3
+  criterion: CrossEntropyLoss
+  cnn_model: 'rgb' # only 'grayscale', or 'rgb'.
+  optimizer: RAdam
+
+data:
+  worker: 0
+  path: Datasets
+  dataset: mnist
+  task: classify
+  batch_size: 64
+  scaler: '01'
+  shuffle_train: True
+
+# study:   
+#   study_name: Classifier # only Classifier, or Classifier_RGB
+#   optimization_target: TestAcc
+#   number_of_trials: 6
+#   direction: maximize
+#   task: classify
+    
+network:
+  filter_growth_rate: 2
+  dropout_rate: 0.2
+  final_channel: 8
+  activation_function: RReLU
+  initial_out_channels: 32
+  final_layer: 'linear' # only 'linear', or 'nlrl'.
+  num_blocks: 3
+
+# comment optimized and study when you run dummy_main.py and make sure to comment learning_rate_exp, weight_decay_rate
