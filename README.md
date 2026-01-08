@@ -5,7 +5,7 @@
 This repository contains an implementation of an image classification model trained on the MNIST dataset using PyTorch.  
 MNIST is a widely used benchmark dataset of handwritten digits (0–9). The goal of this project is to build and train a Convolutional Neural Network (CNN) that learns to recognize digits accurately.
 
-This project demonstrates practical use of deep learning for image recognition tasks.
+The goal is to build, train, and evaluate a Convolutional Neural Network (CNN) that can learn visual features and classify images effectively also to evaluate the calssifier and to understand it via model interpretability through various methods such as attributions, metrics, etc.
 
 ---
 
@@ -25,5 +25,6 @@ This project demonstrates practical use of deep learning for image recognition t
 - Training loop with optimizer and loss function
 - Evaluation on test data
 - Visualization of model performance
+- Interpretability of the trained model.
 
 ---
