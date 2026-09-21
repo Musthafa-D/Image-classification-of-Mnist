@@ -1,30 +1,54 @@
-# Image Classification on MNIST (PyTorch)
+# MNIST Image Classification and Model Interpretation
 
-## Project Overview
+Handwritten-digit classification using configurable convolutional networks in PyTorch. The project explores network settings, linear and NLRL output heads, and diagnostic plots that help inspect predictions beyond a single accuracy value.
 
-This repository contains an implementation of an image classification model trained on the MNIST dataset using PyTorch.  
-MNIST is a widely used benchmark dataset of handwritten digits (0–9). The goal of this project is to build and train a Convolutional Neural Network (CNN) that learns to recognize digits accurately.
+The targets are digits 0–9. The code includes grayscale and RGB-oriented settings; the image representation and selected model need to agree.
 
-The goal is to build, train, and evaluate a Convolutional Neural Network (CNN) that can learn visual features and classify images effectively also to evaluate the calssifier and to understand it via model interpretability through various methods such as attributions, metrics, etc.
+## Implementation
 
----
+- Configurable CNN blocks and network dimensions.
+- Linear and NLRL output-head experiments through the existing framework.
+- Training and evaluation with loss and classification metrics.
+- Optuna-based parameter studies and a separate fixed-configuration launcher.
+- Learning-curve, prediction, attribution and representation plots.
 
-## Dataset
+The checked-in `config.yaml` is arranged for the fixed-run launcher, with `optimized` and `study` sections commented out. `main.py` needs those sections for a tuning study; `dummy_main.py` reads the fixed-run settings directly.
 
-- **MNIST dataset**
-- 60,000 training images, 10,000 test images
-- Each image is 28×28 grayscale
-- 10 classes (digits 0–9)
+## Repository guide
 
----
+| File | Purpose |
+|---|---|
+| `networks.py` | Network and layer definitions |
+| `data_loader.py` | Framework-based dataset preparation |
+| `learner.py` | Training, evaluation and experiment recording |
+| `optuna_hyp.py` | Hyperparameter study workflow |
+| `main.py` | Study launcher using `config.yaml` |
+| `dummy_main.py` | Fixed-run launcher using `config.yaml` |
+| `metrics.py` and `plots.py` | Metrics and diagnostic visualisations |
+| `StudySummary.ipynb` | Saved study-summary notebook |
 
-## What This Project Includes
+The `dummy_*` names refer to the original single-run workflow; they do not imply use of a different synthetic dataset.
 
-- Loading and preprocessing the MNIST dataset
-- Building a CNN model using PyTorch
-- Training loop with optimizer and loss function
-- Evaluation on test data
-- Visualization of model performance
-- Interpretability of the trained model.
+## Environment and use
 
----
+The code uses PyTorch and the external `ccbdl` framework for configuration, data loading, experiment storage and parts of the learning workflow. A compatible installation of that framework is required; it is not bundled here. Other dependencies include torchvision, NumPy, Matplotlib, Optuna and Captum, with additional analysis libraries used by individual modules.
+
+Use the original compatible environment, prepare the dataset at the configured location, and run from the repository root so relative paths resolve correctly. The archive does not include a complete dependency lock file. Supply datasets and optional pretrained models separately where referenced.
+
+Inspect `config.yaml` and the corresponding learner first. After preparing the data and environment, the fixed-run entry point is:
+
+```bash
+python dummy_main.py
+```
+
+For a parameter study, use `main.py` with a complete `config.yaml` containing the required study and optimisation settings. Optional plotting/evaluation paths may require specific saved checkpoints.
+
+## Results and interpretation
+
+The code records learning curves, classification metrics and model explanations. Read the configuration and saved run outputs together when reporting a result. This README does not assert a benchmark accuracy or newly reproduced training result.
+
+The original experiments use metrics named `TestAcc` for model selection. These selection scores should not automatically be described as independent final-test performance. Attribution plots inspect the trained model; they do not prove that it reasons like a person.
+
+## Project focus
+
+The work brings together model configuration, parameter search and interpretation. Dataset handling and NLRL/framework components rely on external implementations; distinguish those components from the experiment configuration and analysis in this repository.
